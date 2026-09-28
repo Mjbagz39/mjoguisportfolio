@@ -1,0 +1,755 @@
+<title>Mark Joseph Oguis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --paper: #F3F6F2;
+    --sheet: #FBFCFA;
+    --ink: #15233A;
+    --ink-soft: #4A5870;
+    --rule: #C9D8E3;
+    --rule-strong: #9FB6C8;
+    --margin-red: #C0392B;
+    --ledger: #1E6A50;
+    --ledger-tint: #E1EEE7;
+    --tick: #1E6A50;
+    --display: "Young Serif", Georgia, "Times New Roman", serif;
+    --body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper: #0F1722;
+      --sheet: #141E2B;
+      --ink: #E6ECF2;
+      --ink-soft: #A3B1C2;
+      --rule: #25354A;
+      --rule-strong: #3A4F68;
+      --margin-red: #E0776B;
+      --ledger: #6CC5A0;
+      --ledger-tint: #173A2F;
+      --tick: #6CC5A0;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #0F1722;
+    --sheet: #141E2B;
+    --ink: #E6ECF2;
+    --ink-soft: #A3B1C2;
+    --rule: #25354A;
+    --rule-strong: #3A4F68;
+    --margin-red: #E0776B;
+    --ledger: #6CC5A0;
+    --ledger-tint: #173A2F;
+    --tick: #6CC5A0;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.6;
+    padding-inline: 20px;
+    padding-block: 0 64px;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; }
+  p { margin: 0; }
+  a { color: var(--ledger); }
+  :focus-visible { outline: 2px solid var(--ledger); outline-offset: 3px; border-radius: 2px; }
+
+  .label {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+    padding-block: 22px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .mark { font-family: var(--display); font-size: 18px; }
+  .topbar nav { display: flex; gap: 20px; flex-wrap: wrap; }
+  .topbar nav a { color: var(--ink-soft); text-decoration: none; font-size: 14px; }
+  .topbar nav a:hover { color: var(--ink); }
+
+  /* ---------- hero: a ruled ledger sheet ---------- */
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 48px;
+    align-items: center;
+    padding-block: 64px 56px;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 6.4vw, 72px);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 em { font-style: normal; color: var(--ledger); }
+  .hero .role { margin-top: 18px; }
+  .hero .lede {
+    margin-top: 24px;
+    font-size: 19px;
+    line-height: 1.55;
+    max-width: 34em;
+    color: var(--ink);
+  }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--body); font-weight: 600; font-size: 15px;
+    padding: 12px 20px; border-radius: 4px; text-decoration: none;
+    border: 1.5px solid var(--ink);
+  }
+  .btn.primary { background: var(--ink); color: var(--paper); }
+  .btn.ghost { color: var(--ink); background: transparent; }
+  .btn:hover { transform: translateY(-1px); }
+
+  /* Portrait on a ruled ledger panel, trial balance pinned over its corner */
+  .portrait { position: relative; }
+  .photo-panel {
+    position: relative;
+    height: 500px;
+    border-radius: 4px;
+    border: 1px solid var(--rule-strong);
+    background:
+      linear-gradient(90deg, transparent 38px, var(--margin-red) 38px, var(--margin-red) 39.5px, transparent 39.5px) no-repeat,
+      repeating-linear-gradient(180deg, transparent 0 31px, var(--rule) 31px 32px),
+      var(--ledger-tint);
+    overflow: hidden;
+    display: flex; justify-content: flex-end; align-items: flex-end;
+  }
+  .photo-panel img {
+    position: relative;
+    height: 96%; width: auto; max-width: 100%;
+    object-fit: contain; object-position: bottom right;
+    margin-right: 4%;
+  }
+  /* Trial balance strip under the banner */
+  .tb { margin-bottom: 56px; }
+  .tb::before { display: none; }
+  .tb .sheet-head { padding-left: 18px; }
+  .tb-grid {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px; background: var(--rule);
+  }
+  .tb-cell {
+    background: var(--sheet);
+    display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: baseline;
+    padding: 12px 18px;
+  }
+  .tb-cell .no { color: var(--ink-soft); font-size: 11px; min-width: 1ch; }
+  .tb-cell.total { background: var(--ledger-tint); font-weight: 500; }
+  .tb-cell.total .amt { color: var(--ledger); border-bottom: 4px double var(--ledger); }
+
+  /* The ledger card */
+  .sheet {
+    background: var(--sheet);
+    border: 1px solid var(--rule-strong);
+    border-radius: 3px;
+    box-shadow: 0 1px 0 var(--rule), 0 14px 30px -18px rgba(21,35,58,.35);
+    position: relative;
+    font-family: var(--mono);
+    font-size: 14px;
+    overflow: hidden;
+  }
+  .sheet::before { /* red margin rule, like columnar paper */
+    content: ""; position: absolute; top: 0; bottom: 0; left: 36px;
+    border-left: 1.5px solid var(--margin-red); opacity: .55;
+  }
+  .sheet-head {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding: 14px 18px 12px 50px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .sheet-head .title { font-family: var(--display); font-size: 17px; }
+  .sheet-row {
+    display: grid; grid-template-columns: 1fr auto; gap: 12px;
+    padding: 9px 18px 9px 50px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .sheet-row .no {
+    position: absolute; left: 0; width: 36px; text-align: center;
+    color: var(--ink-soft); font-size: 11px; top: 11px;
+  }
+  .sheet-row .amt { font-variant-numeric: tabular-nums; text-align: right; }
+  .sheet-row.total {
+    border-top: 1.5px solid var(--ink);
+    border-bottom: 4px double var(--ink);
+    font-weight: 500;
+  }
+  .tick { color: var(--tick); font-weight: 500; }
+
+  /* ---------- sections ---------- */
+  section { padding-block: 56px; border-top: 1px solid var(--rule); }
+  .sec-head {
+    display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: baseline;
+    margin-bottom: 32px;
+  }
+  .sec-head h2 { font-size: clamp(28px, 3.6vw, 38px); line-height: 1.15; }
+  .sec-body { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; }
+  .sec-body > .content { grid-column: 2; }
+
+  .about p + p { margin-top: 16px; }
+  .about p { max-width: 62ch; font-size: 17px; }
+  .values { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .values span {
+    font-family: var(--mono); font-size: 13px;
+    padding: 6px 12px; border: 1px solid var(--rule-strong); border-radius: 999px;
+    color: var(--ink);
+  }
+  .values span::before { content: "✓ "; color: var(--tick); }
+
+  /* services */
+  .services {
+    display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
+    border-top: 1px solid var(--ink);
+  }
+  .svc {
+    grid-column: span 2;
+    padding: 22px 22px 26px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid; grid-template-rows: auto auto 1fr; gap: 8px;
+  }
+  .svc:nth-child(n+4) { grid-column: span 3; }
+  .svc + .svc { padding-left: 22px; border-left: 1px solid var(--rule); }
+  .svc:nth-child(4) { padding-left: 0; border-left: 0; }
+  .svc .acct { font-family: var(--mono); font-size: 12px; color: var(--ledger); letter-spacing: .04em; }
+  .svc h3 { font-size: 21px; line-height: 1.25; }
+  .svc p { color: var(--ink-soft); font-size: 15px; }
+
+  /* tools */
+  .tools { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .tool {
+    background: var(--sheet);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 20px;
+    display: grid; gap: 6px;
+  }
+  .tool strong { font-family: var(--display); font-weight: 400; font-size: 22px; }
+  .tool span { color: var(--ink-soft); font-size: 14px; }
+
+  /* experience ledger */
+  .ledger-wrap { overflow-x: auto; }
+  table.ledger {
+    width: 100%; border-collapse: collapse; min-width: 640px;
+    background: var(--sheet);
+    border: 1px solid var(--rule-strong);
+  }
+  .ledger th {
+    font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink-soft); text-align: left;
+    padding: 12px 16px; border-bottom: 2px solid var(--ink);
+  }
+  .ledger td { padding: 18px 16px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .ledger td.date {
+    font-family: var(--mono); font-size: 13px; white-space: nowrap; font-variant-numeric: tabular-nums;
+    border-right: 1.5px solid var(--margin-red); color: var(--ink-soft); width: 150px;
+  }
+  .ledger .co { font-family: var(--display); font-size: 19px; line-height: 1.3; }
+  .ledger .pos { font-size: 14px; color: var(--ledger); font-weight: 600; margin-top: 2px; }
+  .ledger ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 15px; }
+  .ledger li + li { margin-top: 4px; }
+  .ledger td.ref { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); white-space: nowrap; text-align: right; width: 70px; }
+  .now {
+    display: inline-block; margin-left: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+    padding: 2px 7px; border-radius: 999px; background: var(--ledger-tint); color: var(--ledger); vertical-align: 3px;
+  }
+
+  /* projects */
+  .projects { display: grid; gap: 24px; }
+  .proj {
+    background: var(--sheet);
+    border: 1px solid var(--rule-strong);
+    border-radius: 3px;
+    padding: 28px;
+    display: grid; gap: 14px;
+  }
+  .proj-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px 24px; flex-wrap: wrap; }
+  .proj h3 { font-size: 24px; line-height: 1.25; }
+  .proj .desc { color: var(--ink-soft); max-width: 68ch; }
+  .proj .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .proj .tags span {
+    font-family: var(--mono); font-size: 12px; padding: 4px 10px;
+    border-radius: 999px; background: var(--ledger-tint); color: var(--ledger);
+  }
+  .sample-wrap { overflow-x: auto; border: 1px solid var(--rule-strong); }
+  table.sample {
+    width: 100%; min-width: 820px; border-collapse: collapse;
+    font-family: var(--mono); font-size: 13px; font-variant-numeric: tabular-nums;
+  }
+  .sample th, .sample td { padding: 7px 10px; border-bottom: 1px solid var(--rule); text-align: right; white-space: nowrap; }
+  .sample th:first-child, .sample td:first-child { text-align: left; }
+  .sample thead th { font-weight: 500; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
+  .sample thead tr:first-child th { border-bottom: 1px solid var(--rule-strong); color: var(--ink); }
+  .sample thead tr:last-child th { border-bottom: 2px solid var(--ink); }
+  .sample .grp { border-left: 1px solid var(--rule-strong); }
+  .sample .er { color: var(--margin-red); }
+  .sample .more td { color: var(--ink-soft); font-style: italic; text-align: left; }
+  .sample tfoot td { font-weight: 500; border-top: 1.5px solid var(--ink); border-bottom: 4px double var(--ink); }
+  .note { font-size: 13px; color: var(--ink-soft); }
+  .pgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .pgrid > .pcard:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .pcard {
+    background: var(--sheet);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 24px;
+    display: grid; grid-template-rows: auto auto 1fr auto auto; gap: 10px; align-content: start;
+  }
+  .pcard h3 { font-size: 21px; line-height: 1.25; }
+  .pcard .desc { color: var(--ink-soft); font-size: 15px; }
+  .pcard .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pcard .tags span {
+    font-family: var(--mono); font-size: 12px; padding: 4px 10px;
+    border-radius: 999px; background: var(--ledger-tint); color: var(--ledger);
+  }
+  .pcard .doc-link, .pcard .note { margin-top: 4px; }
+
+  /* education + credentials */
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; }
+  .entry { padding-block: 16px; border-bottom: 1px solid var(--rule); display: grid; gap: 4px; }
+  .entry:first-of-type { border-top: 1px solid var(--ink); }
+  .entry h3 { font-size: 20px; line-height: 1.3; }
+  .entry .meta { font-size: 15px; color: var(--ink-soft); }
+  .entry .yr { font-family: var(--mono); font-size: 13px; color: var(--ledger); font-variant-numeric: tabular-nums; }
+  .col-label { margin-bottom: 10px; }
+  .doc-link { font-weight: 600; text-underline-offset: 3px; }
+
+  /* closing */
+  .closing {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: end;
+    background: var(--ink); color: var(--paper);
+    border-radius: 4px; padding: 44px;
+  }
+  .closing h2 { font-size: clamp(28px, 4vw, 44px); line-height: 1.1; }
+  .closing p { margin-top: 12px; max-width: 44ch; opacity: .82; }
+  .closing .bal {
+    font-family: var(--mono); font-size: 14px; text-align: right; line-height: 1.9;
+    font-variant-numeric: tabular-nums;
+  }
+  .closing .bal .dbl { border-top: 1px solid currentColor; border-bottom: 4px double currentColor; padding-block: 2px; }
+  .closing .btn.primary { background: var(--paper); color: var(--ink); border-color: var(--paper); margin-top: 24px; }
+
+  footer { padding-block: 32px 0; color: var(--ink-soft); font-size: 13px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+  /* entrance: one quiet moment, the ticks get checked */
+  @media (prefers-reduced-motion: no-preference) {
+    .sheet .tick { animation: tick .5s ease-out both; }
+    .tb-cell:nth-child(2) .tick { animation-delay: .12s; }
+    .tb-cell:nth-child(3) .tick { animation-delay: .24s; }
+    .tb-cell:nth-child(4) .tick { animation-delay: .36s; }
+    .tb-cell:nth-child(5) .tick { animation-delay: .48s; }
+    .tb-cell:nth-child(6) .tick { animation-delay: .6s; }
+    .tb-cell:nth-child(7) .tick { animation-delay: .72s; }
+    @keyframes tick { from { opacity: .15; transform: scale(.6); } to { opacity: 1; transform: none; } }
+    .btn { transition: transform .15s ease; }
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; gap: 40px; padding-block: 44px 40px; }
+    .portrait { max-width: 520px; }
+    .tb-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .photo-panel { height: 420px; justify-content: center; }
+    .photo-panel img { margin-right: 0; object-position: bottom center; }
+    .sec-head, .sec-body { grid-template-columns: 1fr; gap: 12px; }
+    .sec-body > .content { grid-column: 1; }
+    .services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .svc, .svc:nth-child(n+4) { grid-column: span 1; }
+    .svc:nth-child(5) { grid-column: span 2; }
+    .svc:nth-child(4) { padding-left: 22px; border-left: 1px solid var(--rule); }
+    .svc:nth-child(2n+1) { padding-left: 0; border-left: 0; }
+    .tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .two { grid-template-columns: 1fr; gap: 32px; }
+    .closing { grid-template-columns: 1fr; padding: 32px 24px; }
+    .closing .bal { text-align: left; }
+  }
+  @media (max-width: 560px) {
+    .services, .tools, .tb-grid, .pgrid { grid-template-columns: 1fr; }
+    .proj, .pcard { padding: 20px; }
+    .svc, .svc + .svc, .svc:nth-child(4) { padding-left: 0; border-left: 0; grid-column: auto; }
+    .svc:nth-child(5) { grid-column: auto; }
+    .topbar nav { gap: 14px; }
+    .hero .lede { font-size: 17px; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="topbar">
+    <div class="mark">M. J. Oguis</div>
+    <nav aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#tools">Tools</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#credentials">Credentials</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div>
+      <p class="label">Certified Bookkeeping Virtual Assistant</p>
+      <h1>Clean books.<br><em>Clear insights.</em></h1>
+      <p class="role label">Mark Joseph Oguis · 5+ years in bookkeeping, payroll &amp; inventory</p>
+      <p class="lede">I keep the finances of small business owners, service providers, and e-commerce sellers accurate and audit-ready, so they can spend their time on growth.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#contact">Work with me</a>
+        <a class="btn ghost" href="#experience">See experience</a>
+      </div>
+    </div>
+
+    <div class="portrait">
+    <div class="photo-panel">
+      <img src="images/mark-oguis.png" alt="Mark Joseph Oguis, arms crossed, wearing glasses and a light button-up shirt" width="392" height="636">
+    </div>
+    </div>
+  </div>
+
+  <div class="sheet tb" aria-label="Summary of qualifications">
+    <div class="sheet-head">
+      <span class="title">Trial balance</span>
+      <span class="label">M.J. Oguis</span>
+    </div>
+    <div class="tb-grid">
+      <div class="tb-cell"><span class="no">1</span><span>QuickBooks Online</span><span class="tick">✓</span></div>
+      <div class="tb-cell"><span class="no">2</span><span>Xero</span><span class="tick">✓</span></div>
+      <div class="tb-cell"><span class="no">3</span><span>Microsoft Excel</span><span class="tick">✓</span></div>
+      <div class="tb-cell"><span class="no">4</span><span>eBisx</span><span class="tick">✓</span></div>
+      <div class="tb-cell"><span class="no">5</span><span>Bank reconciliation</span><span class="tick">✓</span></div>
+      <div class="tb-cell"><span class="no">6</span><span>Payroll &amp; remittances</span><span class="tick">✓</span></div>
+      <div class="tb-cell"><span class="no">7</span><span>Bookkeeping NC III</span><span class="tick">✓</span></div>
+      <div class="tb-cell total"><span class="no"></span><span>Books</span><span class="amt">Balanced</span></div>
+    </div>
+  </div>
+
+  <section id="about" class="about">
+    <div class="sec-head">
+      <p class="label">About</p>
+      <h2>I simplify your finances so you can focus on growth</h2>
+    </div>
+    <div class="sec-body">
+      <div class="content">
+        <p>Hi! I'm Mark Joseph Oguis, a certified Bookkeeping Virtual Assistant with over 5 years of experience supporting small business owners, service providers, and e-commerce entrepreneurs.</p>
+        <p>From daily transaction tracking to monthly reports and reconciliations, I provide reliable and accurate financial support. I take pride in delivering clean books and clear insights.</p>
+        <p>Whether you're just starting out or already scaling, I'm here to make your back-end finances stress-free and audit-ready.</p>
+        <div class="values" aria-label="Working values">
+          <span>Confidentiality</span>
+          <span>Organization</span>
+          <span>Attention to detail</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="sec-head">
+      <p class="label">Services</p>
+      <h2>What I take off your plate</h2>
+    </div>
+    <div class="services">
+      <div class="svc">
+        <span class="acct">Daily</span>
+        <h3>Transaction tracking</h3>
+        <p>Recording and categorizing income and expenses so every entry has a home and a paper trail.</p>
+      </div>
+      <div class="svc">
+        <span class="acct">Monthly</span>
+        <h3>Bank reconciliation</h3>
+        <p>Matching your books to bank statements and resolving differences before they pile up.</p>
+      </div>
+      <div class="svc">
+        <span class="acct">Monthly</span>
+        <h3>Financial reports</h3>
+        <p>Clear month-end reports that show where the money went and what it means for your business.</p>
+      </div>
+      <div class="svc">
+        <span class="acct">Per pay period</span>
+        <h3>Payroll &amp; remittances</h3>
+        <p>Preparing payroll and handling employee remittances accurately and on schedule.</p>
+      </div>
+      <div class="svc">
+        <span class="acct">Ongoing</span>
+        <h3>Inventory control</h3>
+        <p>Monitoring stock levels, purchasing and receiving, and resolving inventory discrepancies.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tools">
+    <div class="sec-head">
+      <p class="label">Tools</p>
+      <h2>Tools I use</h2>
+    </div>
+    <div class="tools">
+      <div class="tool"><strong>QuickBooks Online</strong><span>Accounting software</span></div>
+      <div class="tool"><strong>Xero</strong><span>Accounting software</span></div>
+      <div class="tool"><strong>Microsoft Excel</strong><span>Spreadsheets and reports</span></div>
+      <div class="tool"><strong>eBisx</strong><span>Business system</span></div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="sec-head">
+      <p class="label">Experience</p>
+      <h2>General ledger of my career</h2>
+    </div>
+    <div class="ledger-wrap">
+      <table class="ledger">
+        <thead>
+          <tr><th>Period</th><th>Employer &amp; role</th><th>Particulars</th><th style="text-align:right">Ref.</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="date">Mar 2026 –<br>Sep 2026</td>
+            <td>
+              <div class="co">Yi Shun CGT-RAM <span class="now">Current</span></div>
+              <div class="meta" style="font-size:13px;color:var(--ink-soft)">Primus Ventures affiliate</div>
+              <div class="pos">Inventory Analyst</div>
+            </td>
+            <td>
+              <ul>
+                <li>Monitor stock levels, track shipments, and resolve inventory discrepancies</li>
+                <li>Identify root causes of stockouts and overstocking</li>
+                <li>Analyze inventory data; control purchasing and receiving of stock</li>
+                <li>Process stock transfers from warehouse to salesmen, in the company system and Google Sheets</li>
+              </ul>
+            </td>
+            <td class="ref">GL-04</td>
+          </tr>
+          <tr>
+            <td class="date">2025</td>
+            <td>
+              <div class="co">OBI Services</div>
+              <div class="pos">Real Estate Virtual Assistant</div>
+            </td>
+            <td>
+              <ul>
+                <li>Monitored rentals, taxes, and licenses</li>
+                <li>Managed email correspondence</li>
+              </ul>
+            </td>
+            <td class="ref">GL-03</td>
+          </tr>
+          <tr>
+            <td class="date">2021 – 2024</td>
+            <td>
+              <div class="co">Aestus Software Solutions</div>
+              <div class="pos">Customer Service Representative / Admin</div>
+            </td>
+            <td>
+              <ul>
+                <li>Handled employee remittances and payroll</li>
+                <li>Provided chat support and answered client inquiries</li>
+              </ul>
+              <a class="doc-link" style="display:inline-block;margin-top:8px;font-size:14px" href="https://na2.documents.adobe.com/public/fs?aid=CBFCIBAA3AAABLblqZhAJNWu9jZnkze2wauZ15q-4-GmIu4JX0hyG43e2pGZW_JN0Mlki0PLjnDYB0F5q3RA%2A" target="_blank" rel="noopener">Certificate of Employment ↗</a>
+            </td>
+            <td class="ref">GL-02</td>
+          </tr>
+          <tr>
+            <td class="date">2014 – 2020</td>
+            <td>
+              <div class="co">C and L Lending Corporation</div>
+              <div class="pos">Payroll &amp; Bookkeeping Assistant</div>
+            </td>
+            <td>
+              <ul>
+                <li>Prepared bank reconciliations</li>
+                <li>Processed payroll</li>
+                <li>Handled taxes and business licenses</li>
+              </ul>
+            </td>
+            <td class="ref">GL-01</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head">
+      <p class="label">Projects</p>
+      <h2>Work samples</h2>
+    </div>
+    <div class="projects">
+
+      <article class="proj">
+        <div class="proj-top">
+          <h3>Payroll deductions &amp; remittance schedule</h3>
+          <span class="label">C and L Lending Corp. · Excel</span>
+        </div>
+        <p class="desc">A monthly payroll workbook for 16 employees. It computes each employee's government contributions and withholding tax, splits employee and employer shares, and totals every remittance so payments are filed accurately and on time.</p>
+        <div class="tags"><span>Payroll</span><span>Contributions</span><span>Withholding tax</span><span>Excel</span></div>
+        <div class="sample-wrap">
+          <table class="sample">
+            <thead>
+              <tr>
+                <th></th><th></th>
+                <th class="grp" colspan="2" style="text-align:center">SSS</th>
+                <th class="grp" colspan="2" style="text-align:center">PhilHealth</th>
+                <th class="grp" colspan="2" style="text-align:center">Pag-IBIG</th>
+                <th class="grp"></th>
+              </tr>
+              <tr>
+                <th>Employee</th><th>Gross pay</th>
+                <th class="grp">Employee</th><th>Employer</th>
+                <th class="grp">Employee</th><th>Employer</th>
+                <th class="grp">Employee</th><th>Employer</th>
+                <th class="grp">W/H tax</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Employee 01</td><td>33,000.00</td><td class="grp">800.00</td><td class="er">1,600.00</td><td class="grp">398.75</td><td class="er">398.75</td><td class="grp">100.00</td><td class="er">100.00</td><td class="grp">1,582.39</td></tr>
+              <tr><td>Employee 02</td><td>26,500.00</td><td class="grp">800.00</td><td class="er">1,600.00</td><td class="grp">316.25</td><td class="er">316.25</td><td class="grp">100.00</td><td class="er">100.00</td><td class="grp">298.89</td></tr>
+              <tr><td>Employee 03</td><td>33,000.00</td><td class="grp">800.00</td><td class="er">1,600.00</td><td class="grp">398.75</td><td class="er">398.75</td><td class="grp">100.00</td><td class="er">100.00</td><td class="grp">1,582.39</td></tr>
+              <tr><td>Employee 04</td><td>27,500.00</td><td class="grp">800.00</td><td class="er">1,600.00</td><td class="grp">330.00</td><td class="er">330.00</td><td class="grp">100.00</td><td class="er">100.00</td><td class="grp">496.14</td></tr>
+              <tr><td>Employee 05</td><td>19,000.00</td><td class="grp">800.00</td><td class="er">1,600.00</td><td class="grp">206.25</td><td class="er">206.25</td><td class="grp">100.00</td><td class="er">100.00</td><td class="grp">0.00</td></tr>
+              <tr class="more"><td colspan="9">+ 11 more employees</td></tr>
+            </tbody>
+            <tfoot>
+              <tr><td>Total (16)</td><td>398,500.00</td><td class="grp">12,240.00</td><td class="er">25,050.00</td><td class="grp">4,857.84</td><td class="er">4,857.92</td><td class="grp">1,600.00</td><td class="er">1,600.00</td><td class="grp">8,568.78</td></tr>
+            </tfoot>
+          </table>
+        </div>
+        <p class="note">Excerpt. Employee names are hidden to protect their privacy.</p>
+        <p><a class="doc-link" href="https://docs.google.com/spreadsheets/d/1W8OL0mXO4LRFVSfwpH71ci-WmGMFbYJr/edit?gid=1661358038#gid=1661358038" target="_blank" rel="noopener">Open SSS &amp; PhilHealth remittance, Feb 2020 ↗</a></p>
+      </article>
+
+      <div class="pgrid">
+
+        <article class="pcard">
+          <span class="label">Yi Shun CGT-RAM · Google Sheets · 2026</span>
+          <h3>YSCGT-RAM inventory workbook</h3>
+          <p class="desc">Tracks stock levels, purchasing and receiving, and stock transfers from the warehouse to salesmen. Used to spot discrepancies and find the causes of stockouts and overstocking.</p>
+          <div class="tags"><span>Inventory</span><span>Stock transfers</span><span>Data entry</span></div>
+          <a class="doc-link" href="https://docs.google.com/spreadsheets/d/1at7jijCubwYYfRTkn8y6n_w048MPzwe7lyhQ9Od1fvI/edit?gid=51103842#gid=51103842" target="_blank" rel="noopener">Open in Google Sheets ↗</a>
+        </article>
+
+        <article class="pcard">
+          <span class="label">School accounts · Excel · May 2020 – Mar 2023</span>
+          <h3>Cash disbursement voucher register</h3>
+          <p class="desc">Three school years of cash disbursements in 35 monthly sheets. Each voucher is classified into about 60 expense accounts, from salaries and government remittances to utilities and capital outlay, and rolls up into budget, cash flow, and yearly summary sheets and a financial report.</p>
+          <div class="tags"><span>Disbursements</span><span>Expense classification</span><span>Financial reporting</span></div>
+          <a class="doc-link" href="https://docs.google.com/spreadsheets/d/18PXTtReGOG6mU7sj7ZjZM23Wa8tXsK1a/edit?gid=1906902837#gid=1906902837" target="_blank" rel="noopener">Open in Google Sheets ↗</a>
+        </article>
+
+        <article class="pcard">
+          <span class="label">School accounts · Excel · SY 2022 – 2023</span>
+          <h3>Cash receipts journal</h3>
+          <p class="desc">Twelve monthly sheets recording every official receipt by date, OR number, and course. Each collection is split across about 70 fee accounts, such as tuition, miscellaneous, laboratory, and graduation fees, with a summary for the whole school year.</p>
+          <div class="tags"><span>Cash receipts</span><span>Official receipts</span><span>Revenue tracking</span></div>
+          <a class="doc-link" href="https://docs.google.com/spreadsheets/d/1RqrNKpclYMsxaCtVND6dMVcBlvaQDQ9c/edit?gid=435364566#gid=435364566" target="_blank" rel="noopener">Open in Google Sheets ↗</a>
+        </article>
+
+        <article class="pcard">
+          <span class="label">Philippine Advent College · Word · Oct 2022</span>
+          <h3>Official receipts audit report</h3>
+          <p class="desc">A cash receipts document examination for October 2022. I checked every OR for legibility and for matching amounts in words and figures, then listed each receipt where the audited amount differed from the recorded one.</p>
+          <div class="tags"><span>Internal audit</span><span>Cash receipts</span><span>Variance review</span></div>
+          <a class="doc-link" href="https://docs.google.com/document/d/190Fg3ia1Ui03d48NEeWEB0NJxphcDbbb/edit" target="_blank" rel="noopener">Open in Google Docs ↗</a>
+        </article>
+
+        <article class="pcard">
+          <span class="label">Aestus Software Solutions · Excel · 2020</span>
+          <h3>Statutory contributions workbook</h3>
+          <p class="desc">Employee and employer statutory contributions for the year, prepared for monthly remittance of SSS, PhilHealth, and Pag-IBIG premiums.</p>
+          <div class="tags"><span>Payroll</span><span>Remittances</span><span>Compliance</span></div>
+          <a class="doc-link" href="https://docs.google.com/spreadsheets/d/1NSIcmDj9coTOdchtGulKwWcuHsyEIDAF/edit?gid=753160609#gid=753160609" target="_blank" rel="noopener">Open in Google Sheets ↗</a>
+        </article>
+
+        <article class="pcard">
+          <span class="label">C and L Lending Corp. · Excel · 2018</span>
+          <h3>Year-end alphalist of employees</h3>
+          <p class="desc">A draft alphabetical list of employees' annual compensation and taxes withheld, prepared for year-end payroll tax reporting.</p>
+          <div class="tags"><span>Payroll</span><span>Year-end reporting</span><span>Withholding tax</span></div>
+          <a class="doc-link" href="https://docs.google.com/spreadsheets/d/1WHGZuieLckTyQdF8gmy0sNOqyrZB0Mqx/edit?gid=2084549888#gid=2084549888" target="_blank" rel="noopener">Open in Google Sheets ↗</a>
+        </article>
+
+        <article class="pcard">
+          <span class="label">SANDUROT · Excel</span>
+          <h3>Members data bank</h3>
+          <p class="desc">A member database organized by membership type and department, with member codes and dependents. It includes a summary per department, duplicate checks, and a list of members with missing biodata to follow up.</p>
+          <div class="tags"><span>Database management</span><span>Data cleanup</span><span>Data entry</span></div>
+          <a class="doc-link" href="https://docs.google.com/spreadsheets/d/16GwylGERHw9HTX7K52gu8Yz18J2hVXWE/edit?gid=152179042#gid=152179042" target="_blank" rel="noopener">Open in Google Sheets ↗</a>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="credentials">
+    <div class="sec-head">
+      <p class="label">Credentials</p>
+      <h2>Education &amp; achievements</h2>
+    </div>
+    <div class="two">
+      <div>
+        <p class="label col-label">Education</p>
+        <div class="entry">
+          <span class="yr">2022 – 2023</span>
+          <h3>Master in Public Administration</h3>
+          <p class="meta">DMC College Foundation Inc.</p>
+        </div>
+        <div class="entry">
+          <span class="yr">2009 – 2013</span>
+          <h3>BS in Accounting Technology</h3>
+          <p class="meta">Saint Vincent's College Inc.</p>
+        </div>
+      </div>
+      <div>
+        <p class="label col-label">Achievements</p>
+        <div class="entry">
+          <span class="yr">2019</span>
+          <h3>Bookkeeping NC III</h3>
+          <p class="meta">National Certificate · Cert. No. <span style="font-family:var(--mono);font-size:14px">17074603010975</span></p>
+        </div>
+        <div class="entry">
+          <span class="yr">5 years of service</span>
+          <h3>Loyalty Award</h3>
+          <p class="meta">C and L Lending Corporation</p>
+        </div>
+        <div class="entry">
+          <span class="yr">Document</span>
+          <h3>Certificate of Employment</h3>
+          <p class="meta">Aestus Software Solutions · <a class="doc-link" href="https://na2.documents.adobe.com/public/fs?aid=CBFCIBAA3AAABLblqZhAJNWu9jZnkze2wauZ15q-4-GmIu4JX0hyG43e2pGZW_JN0Mlki0PLjnDYB0F5q3RA%2A" target="_blank" rel="noopener">View certificate ↗</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="border-top:0">
+    <div class="closing">
+      <div>
+        <p class="label" style="color:inherit;opacity:.7">Let's get started</p>
+        <h2>Ready for books you can trust?</h2>
+        <p>Tell me about your business and where your finances stand today. I'll help you get organized and stay that way.</p>
+        <a class="btn primary" href="mailto:your-email@example.com">Email Mark</a>
+      </div>
+      <div class="bal" aria-hidden="true">
+        <div>Debits&nbsp;&nbsp; ✓</div>
+        <div>Credits&nbsp; ✓</div>
+        <div class="dbl">Balanced ✓</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Mark Joseph Oguis</span>
+    <span>Bookkeeping Virtual Assistant · QuickBooks Online · Xero · Excel</span>
+  </footer>
+</div>
